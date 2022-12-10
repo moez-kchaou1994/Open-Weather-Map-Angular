@@ -30,7 +30,12 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 1. The API documentation page is accessible http://openweathermap.org/api
 2. Using openweathermap requires registration in order to obtain an API key
 The OpenWeatherMap service provides a current weather API, as well as several forecast types with different depths and measurement steps. In this project, we will use 2 APIs:
+
 *Current weather data:
+
 http://api.openweathermap.org/data/2.5/weather?q={city name}&appid={your api key}
+
 *Forecast in 3 hour steps for 5 days
+
 http://api.openweathermap.org/data/2.5/forecast?q={city name}&appid={your api key}
+
