@@ -1,0 +1,97 @@
+<app-menu></app-menu>
+<div class="container" >
+    <div class="row">
+        <div class="col-10 mx-auto">
+          <div class="card">
+            <div class="card-header text-center" style="background-image: url('https://www.francetvinfo.fr/image/75wjh8h7u-3c5f/840/472/23610325.jpg');">
+              <h3 class="badge badge-info">Meteo </h3>
+              <div class="form-group">
+                <input class="form-control" type="text" name="ville" id="ville" 
+                aria-describedby="weatherLocation"
+                  placeholder="Choisir une ville" [(ngModel)]="ville" />
+              </div>
+              <div class="row">
+                <div class="col-6 text-left" >
+                  <button type="submit" class="btn btn-info btn-md" (click)="chargermeteo1jour()">
+                  Afficher Meteo</button></div>
+                <div class="col-6 text-right">
+                  <button type="submit" class="btn btn-info btn-md" (click)="chargermeteo5jour()">
+                  Afficher 5 jours</button></div>
+              </div>
+          </div>
+            <div class="card-body" *ngIf="info != null ;else noweather">
+              <div>
+                <h3>{{info.name}}, {{info.sys.country}}</h3>
+                <p class="mr-5">{{info.dt *1000 |date:'dd/MM/yyyy HH:mm'}}
+                </p>
+                <div>
+                  <img src='{{"http://openweathermap.org/img/wn/"+info.weather[0].icon+"@2x.png"}}'>
+                  <!--img #icon src='assets\images\{{info.weather[0].icon}}.png' width="150" height="150"-->
+                  <div class="text-primary">
+                    <h2>{{(this.info.main.temp - 273.15)|number:'2.1'}} °C</h2>                 
+                    <p class="text-left">{{info.weather[0].description}}</p>
+                  </div>
+                </div>
+              </div>
+              <table class="table table-responsive">             
+                <tbody>
+                  <tr>
+                    <th scope="row">Latitude</th><td>{{info.coord.lat}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Longtitude</th><td>{{info.coord.lon}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Humidité</th><td>{{info.main.humidity}}%</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Pression</th><td>{{info.main.pressure}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-10 mx-auto">
+        <div class="card" *ngIf="weather5.length>0 ;else noweather">
+          <div class="card-header text-left">
+            <h3 class="badge badge-info">Prévision météo à 5 jours</h3>
+          </div>
+          <div class="card-body">
+            <table id="example" class="table table-striped table-responsive table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Icone</th>
+                  <th scope="col">Temp.</th>
+                  <th scope="col">Temp. Min</th>
+                  <th scope="col">Temp. Max</th>
+                  <th scope="col">Humidité</th>
+                  <th scope="col">Pression</th>
+                </tr>
+               </thead>
+               <tbody>
+                  <tr *ngFor="let i of weather5">
+                    <td scope="row">{{i.dt * 1000|date:'dd/MM/yyyy HH:mm'}}</td>
+                    <td><img src='{{"http://openweathermap.org/img/wn/"+i.weather[0].icon+".png"}}'></td>
+                    <!--td><img #icon src='assets\images\{{i.weather[0].icon}}.png' width="40" height="40"></td--> 
+                    <td>{{(i.main.temp - 273.15)|number:'2.1'}}°C</td>
+                    <td>{{(i.main.temp_min - 273.15)|number:'2.1'}}°C</td>
+                    <td>{{(i.main.temp_max - 273.15)|number:'2.1'}}°C</td>
+                    <td>{{i.main.humidity}}%</td>
+                    <td>{{i.main.pressure}}</td>
+                  </tr>
+               </tbody>
+             </table>
+           </div>
+          </div>
+          </div>
+    </div>
+
+    <ng-template #noweather>
+      <p></p>
+    </ng-template>
+
+</div>
